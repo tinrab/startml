@@ -1,0 +1,39 @@
+# Install once: `uv run pre-commit install`. Run manually: `uv run pre-commit run --all-files`.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: detect-private-key
+      # Data and checkpoints belong in DVC / W&B artifacts, not git.
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+
+  # Local hooks use the locked tool versions from uv.lock.
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix
+        language: system
+        types_or: [python, pyi]
+      - id: uv-lock
+        name: uv.lock up to date
+        entry: uv lock --check
+        language: system
+        files: ^(pyproject\.toml|uv\.lock)$
+        pass_filenames: false
+      - id: strip-notebook-outputs
+        name: strip notebook outputs
+        entry: uvx nbstripout
+        language: system
+        files: \.ipynb$

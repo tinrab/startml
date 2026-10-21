@@ -1,0 +1,40 @@
+# https://lightning.ai/docs/pytorch/stable/common/trainer.html
+# Keys listed here can be overridden from the CLI without a `+` prefix.
+_target_: lightning.pytorch.trainer.Trainer
+
+default_root_dir: ${paths.output_dir}
+
+min_epochs: 1
+max_epochs: 10
+# Stop after this many optimizer steps (-1: no limit); takes precedence over epochs.
+max_steps: -1
+
+accelerator: auto
+strategy: auto
+devices: 1
+num_nodes: 1
+
+# "bf16-mixed" on recent GPUs (see trainer=gpu), "32-true" otherwise.
+precision: 32-true
+
+gradient_clip_val: null
+accumulate_grad_batches: 1
+
+# Validate every N epochs, and/or every fraction of an epoch (float) / N batches (int).
+check_val_every_n_epoch: 1
+val_check_interval: null
+num_sanity_val_steps: 2
+log_every_n_steps: 50
+
+# Fraction (float) or number (int) of batches per epoch; handy for quick runs.
+limit_train_batches: null
+limit_val_batches: null
+limit_test_batches: null
+overfit_batches: 0.0
+fast_dev_run: false
+
+# Set true for bitwise reproducibility (slower; some ops will error).
+deterministic: false
+benchmark: false
+detect_anomaly: false
+profiler: null

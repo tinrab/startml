@@ -1,0 +1,25 @@
+# Disable one from the CLI with e.g. `callbacks.early_stopping=null`.
+defaults:
+  - model_checkpoint
+  - early_stopping
+  - model_summary
+  - rich_progress_bar
+  - learning_rate_monitor
+  - _self_
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  # `best.ckpt` (top-1) + `last.ckpt`; `uv run evaluate ckpt_path=<run dir>` picks up best.ckpt.
+  filename: best
+  monitor: val/acc
+  mode: max
+  save_last: true
+  auto_insert_metric_name: false
+
+early_stopping:
+  monitor: val/acc
+  patience: 5
+  mode: max
+
+model_summary:
+  max_depth: 2

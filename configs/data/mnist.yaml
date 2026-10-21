@@ -1,0 +1,9 @@
+_target_: startml.data.mnist.MNISTDataModule
+data_dir: ${paths.data_dir}
+# Global batch size, split across devices.
+batch_size: 128
+train_val_test_split: [55_000, 5_000, 10_000]
+num_workers: 4
+pin_memory: true
+persistent_workers: true
+seed: 42

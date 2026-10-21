@@ -1,0 +1,11 @@
+# @package _global_
+# A few epochs on a small fraction of the data.
+
+defaults:
+  - default
+
+trainer:
+  max_epochs: 3
+  limit_train_batches: 0.05
+  limit_val_batches: 0.1
+  limit_test_batches: 0.1

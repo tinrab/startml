@@ -1,0 +1,11 @@
+# Fully sharded data parallel for models that don't fit on one GPU.
+defaults:
+  - default
+
+strategy:
+  _target_: lightning.pytorch.strategies.FSDPStrategy
+  sharding_strategy: FULL_SHARD
+accelerator: gpu
+devices: -1
+num_nodes: 1
+precision: bf16-mixed

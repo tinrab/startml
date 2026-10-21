@@ -1,0 +1,4 @@
+# Logs LR to the loggers; skipped automatically when there is no logger.
+learning_rate_monitor:
+  _target_: lightning.pytorch.callbacks.LearningRateMonitor
+  logging_interval: epoch

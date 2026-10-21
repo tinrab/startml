@@ -1,0 +1,11 @@
+# Synthetic data, no download. For smoke tests: `uv run train data=random`.
+_target_: startml.data.random.RandomDataModule
+input_shape: [1, 28, 28]
+num_classes: 10
+train_size: 512
+val_size: 128
+test_size: 128
+# Higher is harder.
+noise: 1.0
+batch_size: 64
+num_workers: 0

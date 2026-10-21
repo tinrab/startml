@@ -1,0 +1,31 @@
+# Search space for `uv run sweep search=mnist_mlp`.
+name: mnist_mlp
+
+# Fixed train config overrides applied to every trial.
+overrides:
+  - experiment=mnist_mlp
+  - trainer.max_epochs=5
+  - logger=csv
+  - test=false
+  - extras.print_config=false
+  - callbacks.model_checkpoint=null
+
+# Sampled parameters: `<train config key>: {type: float|int|categorical, ...}`.
+params:
+  model.optimizer.lr:
+    type: float
+    low: 1.0e-4
+    high: 1.0e-2
+    log: true
+  model.optimizer.weight_decay:
+    type: float
+    low: 1.0e-6
+    high: 1.0e-1
+    log: true
+  model.net.dropout:
+    type: float
+    low: 0.0
+    high: 0.5
+  data.batch_size:
+    type: categorical
+    choices: [64, 128, 256]

@@ -1,0 +1,23 @@
+# @package _global_
+# Entry config for `uv run evaluate ckpt_path=<checkpoint file or run dir>`.
+# Pass the same data/model groups (or `experiment=`) the checkpoint was trained with.
+
+defaults:
+  - _self_
+  - data: mnist
+  - model: mnist_mlp
+  - logger: null
+  - trainer: default
+  - paths: default
+  - extras: default
+  - hydra: default
+  - experiment: null
+  - optional local: default
+
+task_name: eval
+
+tags: [dev]
+
+# Checkpoint file, or a run directory (uses `<run_dir>/checkpoints/<ckpt_which>.ckpt`).
+ckpt_path: ???
+ckpt_which: best

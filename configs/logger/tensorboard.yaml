@@ -1,0 +1,8 @@
+# View with `just tensorboard`.
+tensorboard:
+  _target_: lightning.pytorch.loggers.TensorBoardLogger
+  save_dir: ${paths.output_dir}/tensorboard
+  name: null
+  version: ""
+  log_graph: false
+  default_hp_metric: false

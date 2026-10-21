@@ -1,0 +1,96 @@
+[project]
+name = "startml"
+version = "0.1.0"
+description = "Template for training ML models with PyTorch Lightning, Hydra and W&B"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "datasets>=5.1.0",
+    "hydra-colorlog>=1.2.0",
+    "hydra-core>=1.4.0rc1",
+    "lightning>=2.6.6",
+    "omegaconf>=2.3.1",
+    "optuna>=5.0.0",
+    "python-dotenv>=1.2.4",
+    "rich>=15.0.0",
+    "tensorboard>=2.21.0",
+    "torch>=2.14.1",
+    "torchmetrics>=1.9.0",
+    "torchvision>=0.29.1",
+    "transformers>=5.20.2",
+    "wandb>=0.31.0",
+]
+
+[project.scripts]
+train = "startml.train:main"
+evaluate = "startml.eval:main"
+sweep = "startml.sweep:main"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.7.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.1",
+    "ty>=0.0.90",
+]
+notebook = [
+    "ipykernel>=7.0.0",
+    "matplotlib>=3.10.0",
+    "pandas>=3.0.6",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.0,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv]
+default-groups = ["dev"]
+
+# PyTorch wheels: CUDA 13.0 on Linux, PyPI default (CPU/MPS) elsewhere.
+# For CPU-only Linux (e.g. CI without GPU), change `pytorch-cu130` to `pytorch-cpu`.
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu130", marker = "sys_platform == 'linux'" }]
+torchvision = [{ index = "pytorch-cu130", marker = "sys_platform == 'linux'" }]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "RUF", "PTH", "NPY"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["startml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers"]
+markers = [
+    "slow: slow tests (deselect with '-m \"not slow\"')",
+    "gpu: tests requiring a CUDA GPU",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore:.*does not have many workers.*",
+    "ignore:.*GPU available but not used.*",
+]
+
+[tool.coverage.run]
+source = ["src/startml"]
+
+[tool.ty.rules]
+# `nn.Module.forward` is declared as a mutable attribute in torch, so every override trips this.
+invalid-mutable-override = "ignore"

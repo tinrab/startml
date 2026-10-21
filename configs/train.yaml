@@ -1,0 +1,42 @@
+# @package _global_
+# Entry config for `uv run train`. Override anything from the CLI, e.g.
+#   uv run train experiment=mnist_cnn trainer=gpu logger=wandb
+#   uv run train data.batch_size=256 model.optimizer.lr=3e-4 trainer.max_epochs=20
+
+defaults:
+  - _self_
+  - data: mnist
+  - model: mnist_mlp
+  - callbacks: default
+  - logger: tensorboard # set `logger=wandb` (or `logger=many`) for W&B
+  - trainer: default
+  - paths: default
+  - extras: default
+  - hydra: default
+
+  # Experiment configs pin a full setup (data + model + trainer + ...) under version control.
+  - experiment: null
+
+  # Debugging presets, e.g. `debug=fdr` (fast dev run), `debug=overfit`, `debug=profiler`.
+  - debug: null
+
+  # Machine-specific overrides in `configs/local/default.yaml` (gitignored).
+  - optional local: default
+
+# Used in output paths and as the logger project/group.
+task_name: train
+
+# Free-form tags attached to the run (W&B tags, output dir name).
+tags: [dev]
+
+train: true
+# Test the best checkpoint on the test set after training.
+test: true
+
+# Resume training from this checkpoint.
+ckpt_path: null
+
+seed: 42
+
+# Metric returned to hyperparameter sweepers (`uv run sweep`, Hydra multirun).
+optimized_metric: val/acc_best

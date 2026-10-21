@@ -1,0 +1,32 @@
+# Config for `uv run sweep` (Optuna). The search space lives in `configs/search/`.
+#   uv run sweep search=mnist_mlp n_trials=50
+
+defaults:
+  - _self_
+  - search: mnist_mlp
+
+study_name: ${search.name}
+
+# Persistent storage: re-running with the same study name resumes the study.
+# Inspect with `uvx optuna-dashboard sqlite:///outputs/optuna.db`.
+storage: sqlite:///${oc.env:PROJECT_ROOT}/outputs/optuna.db
+
+output_dir: ${oc.env:PROJECT_ROOT}/outputs/sweeps/${study_name}
+
+metric: val/acc_best
+direction: maximize
+n_trials: 20
+# Seconds; stop starting new trials after this.
+timeout: null
+# Record failing trials (e.g. CUDA OOM) as failed instead of aborting the sweep.
+continue_on_error: true
+
+sampler:
+  _target_: optuna.samplers.TPESampler
+  seed: 42
+  n_startup_trials: 5
+
+pruner:
+  _target_: optuna.pruners.MedianPruner
+  n_startup_trials: 5
+  n_warmup_steps: 2

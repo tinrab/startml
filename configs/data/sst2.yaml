@@ -1,0 +1,14 @@
+_target_: startml.data.hf_text.HFTextClassificationDataModule
+tokenizer_name: distilbert/distilbert-base-uncased
+dataset_name: nyu-mll/glue
+dataset_config: sst2
+text_field: sentence
+label_field: label
+train_split: train
+val_split: validation
+# SST-2's test split is unlabeled; validation is reused for testing.
+test_split: null
+max_length: 128
+num_classes: 2
+batch_size: 32
+num_workers: 4

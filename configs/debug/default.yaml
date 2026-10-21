@@ -1,0 +1,25 @@
+# @package _global_
+# Base for debug presets: no loggers, verbose project logs, separate output dir.
+
+defaults:
+  - override /logger: null
+
+task_name: debug
+
+extras:
+  ignore_warnings: false
+  print_config: true
+
+hydra:
+  job_logging:
+    loggers:
+      startml:
+        level: DEBUG
+
+trainer:
+  max_epochs: 1
+  devices: 1
+  detect_anomaly: true
+
+data:
+  num_workers: 0

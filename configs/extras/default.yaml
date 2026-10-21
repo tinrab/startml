@@ -1,0 +1,10 @@
+# Process-wide settings applied by `startml.utils.extras`.
+
+# Disable python warnings.
+ignore_warnings: false
+
+# Pretty-print the resolved config and save it to `<output_dir>/config_tree.log`.
+print_config: true
+
+# "high" enables TF32 matmuls on Ampere+ GPUs (big speedup, tiny precision loss).
+float32_matmul_precision: high

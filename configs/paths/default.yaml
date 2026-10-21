@@ -1,0 +1,11 @@
+# All paths are absolute so runs work from any working directory.
+root_dir: ${oc.env:PROJECT_ROOT}
+
+# Datasets (gitignored; version with DVC or download in `prepare_data`).
+data_dir: ${paths.root_dir}/data
+
+# Hydra creates a dir per run under here (see `configs/hydra/default.yaml`).
+log_dir: ${paths.root_dir}/outputs
+
+# This run's dir: checkpoints, logs, saved config.
+output_dir: ${hydra:runtime.output_dir}

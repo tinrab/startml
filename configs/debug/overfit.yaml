@@ -1,0 +1,15 @@
+# @package _global_
+# Overfit a few batches: if loss doesn't go to ~0, something is wrong with the model or loss.
+
+defaults:
+  - default
+
+trainer:
+  max_epochs: 30
+  overfit_batches: 3
+
+callbacks:
+  early_stopping: null
+  model_checkpoint: null
+
+test: false

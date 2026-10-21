@@ -1,0 +1,21 @@
+# @package _global_
+# uv run train experiment=mnist_mlp
+
+defaults:
+  - override /data: mnist
+  - override /model: mnist_mlp
+  - override /trainer: default
+
+tags: [mnist, mlp]
+
+seed: 42
+
+trainer:
+  max_epochs: 10
+
+model:
+  optimizer:
+    lr: 1.0e-3
+
+data:
+  batch_size: 128

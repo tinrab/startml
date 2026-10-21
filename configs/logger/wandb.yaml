@@ -1,0 +1,15 @@
+# https://wandb.ai — `uv run wandb login` once, or set WANDB_API_KEY in `.env`.
+# Offline: `WANDB_MODE=offline uv run train logger=wandb`, later `uv run wandb sync <dir>`.
+wandb:
+  _target_: lightning.pytorch.loggers.WandbLogger
+  project: ${oc.env:WANDB_PROJECT,startml}
+  entity: ${oc.env:WANDB_ENTITY,null}
+  name: null
+  group: ${task_name}
+  tags: ${tags}
+  job_type: ${task_name}
+  save_dir: ${paths.output_dir}
+  offline: false
+  # Upload checkpoints as W&B artifacts: false | true (end of run) | "all" (every save).
+  log_model: false
+  prefix: ""

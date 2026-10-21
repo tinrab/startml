@@ -1,0 +1,10 @@
+# Multi-GPU data parallel on one node: `uv run train trainer=ddp trainer.devices=4`.
+defaults:
+  - default
+
+strategy: ddp
+accelerator: gpu
+devices: -1
+num_nodes: 1
+precision: bf16-mixed
+sync_batchnorm: true

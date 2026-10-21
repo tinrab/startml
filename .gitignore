@@ -1,0 +1,39 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Secrets and machine-specific config
+.env
+configs/local/default.yaml
+
+# Data, runs and artifacts (track data with DVC, runs with W&B)
+/data/*
+!/data/.gitkeep
+!/data/*.dvc
+/outputs/
+/logs/
+/multirun/
+wandb/
+lightning_logs/
+*.ckpt
+*.safetensors
+*.onnx
+*.db
+
+# Misc
+.direnv/
+.DS_Store

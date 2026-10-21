@@ -1,0 +1,12 @@
+.git
+.venv
+.direnv
+.env
+**/__pycache__
+.ruff_cache
+.pytest_cache
+data
+outputs
+wandb
+notebooks
+*.ckpt

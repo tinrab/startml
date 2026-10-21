@@ -1,0 +1,8 @@
+# @package _global_
+# Fast dev run: one train/val/test batch to catch bugs end to end.
+
+defaults:
+  - default
+
+trainer:
+  fast_dev_run: true

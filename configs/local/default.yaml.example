@@ -1,0 +1,12 @@
+# @package _global_
+# Copy to `configs/local/default.yaml` (gitignored) for machine-specific overrides.
+
+# trainer:
+#   accelerator: gpu
+#   precision: bf16-mixed
+
+# data:
+#   num_workers: 8
+
+# paths:
+#   data_dir: /mnt/datasets

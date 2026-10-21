@@ -1,0 +1,23 @@
+_target_: startml.models.ClassifierModule
+num_classes: 2
+compile: false
+
+net:
+  _target_: startml.models.nets.hf.HFSequenceClassifier
+  model_name: distilbert/distilbert-base-uncased
+  num_labels: ${model.num_classes}
+  freeze_backbone: false
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 2.0e-5
+  weight_decay: 1.0e-2
+
+# Linear warmup then decay, stepped per batch. `num_training_steps` is filled in by
+# `ClassifierModule` from `trainer.estimated_stepping_batches`.
+scheduler:
+  _target_: transformers.get_linear_schedule_with_warmup
+  _partial_: true
+  num_warmup_steps: 100
+scheduler_interval: step
